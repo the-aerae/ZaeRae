@@ -153,7 +153,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
      * @notice On deployment, set the market contract address and register the
      * ERC721 metadata interface
      */
-    constructor(address marketContractAddr) public ERC721("Zora", "ZORA") {
+    constructor(address marketContractAddr) public ERC721("BaeZora", "BZR") {
         marketContract = marketContractAddr;
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
@@ -209,7 +209,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         override
         nonReentrant
     {
-        _mintForCreator(msg.sender, data, bidShares);
+        _mintForCreator(_msgSender(), data, bidShares);
     }
 
     /**
@@ -263,7 +263,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         external
         override
     {
-        require(msg.sender == marketContract, "Media: only market contract");
+        require(_msgSender() == marketContract, "Media: only market contract");
         previousTokenOwners[tokenId] = ownerOf(tokenId);
         _safeTransfer(ownerOf(tokenId), recipient, tokenId, "");
     }
@@ -275,7 +275,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         public
         override
         nonReentrant
-        onlyApprovedOrOwner(msg.sender, tokenId)
+        onlyApprovedOrOwner(_msgSender(), tokenId)
     {
         IMarket(marketContract).setAsk(tokenId, ask);
     }
@@ -287,7 +287,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         external
         override
         nonReentrant
-        onlyApprovedOrOwner(msg.sender, tokenId)
+        onlyApprovedOrOwner(_msgSender(), tokenId)
     {
         IMarket(marketContract).removeAsk(tokenId);
     }
@@ -301,8 +301,11 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         nonReentrant
         onlyExistingToken(tokenId)
     {
-        require(msg.sender == bid.bidder, "Market: Bidder must be msg sender");
-        IMarket(marketContract).setBid(tokenId, bid, msg.sender);
+        require(
+            _msgSender() == bid.bidder,
+            "Market: Bidder must be msg sender"
+        );
+        IMarket(marketContract).setBid(tokenId, bid, _msgSender());
     }
 
     /**
@@ -314,7 +317,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         nonReentrant
         onlyTokenCreated(tokenId)
     {
-        IMarket(marketContract).removeBid(tokenId, msg.sender);
+        IMarket(marketContract).removeBid(tokenId, _msgSender());
     }
 
     /**
@@ -324,7 +327,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         public
         override
         nonReentrant
-        onlyApprovedOrOwner(msg.sender, tokenId)
+        onlyApprovedOrOwner(_msgSender(), tokenId)
     {
         IMarket(marketContract).acceptBid(tokenId, bid);
     }
@@ -338,7 +341,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         override
         nonReentrant
         onlyExistingToken(tokenId)
-        onlyApprovedOrOwner(msg.sender, tokenId)
+        onlyApprovedOrOwner(_msgSender(), tokenId)
     {
         address owner = ownerOf(tokenId);
 
@@ -358,7 +361,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
      */
     function revokeApproval(uint256 tokenId) external override nonReentrant {
         require(
-            msg.sender == getApproved(tokenId),
+            _msgSender() == getApproved(tokenId),
             "Media: caller not approved address"
         );
         _approve(address(0), tokenId);
@@ -372,12 +375,12 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         external
         override
         nonReentrant
-        onlyApprovedOrOwner(msg.sender, tokenId)
+        onlyApprovedOrOwner(_msgSender(), tokenId)
         onlyTokenWithContentHash(tokenId)
         onlyValidURI(tokenURI)
     {
         _setTokenURI(tokenId, tokenURI);
-        emit TokenURIUpdated(tokenId, msg.sender, tokenURI);
+        emit TokenURIUpdated(tokenId, _msgSender(), tokenURI);
     }
 
     /**
@@ -391,12 +394,12 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
         external
         override
         nonReentrant
-        onlyApprovedOrOwner(msg.sender, tokenId)
+        onlyApprovedOrOwner(_msgSender(), tokenId)
         onlyTokenWithMetadataHash(tokenId)
         onlyValidURI(metadataURI)
     {
         _setTokenMetadataURI(tokenId, metadataURI);
-        emit TokenMetadataURIUpdated(tokenId, msg.sender, metadataURI);
+        emit TokenMetadataURIUpdated(tokenId, _msgSender(), metadataURI);
     }
 
     /**
@@ -566,7 +569,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
                     keccak256(
                         "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
                     ),
-                    keccak256(bytes("Zora")),
+                    keccak256(bytes("BaeZora")),
                     keccak256(bytes("1")),
                     chainID,
                     address(this)

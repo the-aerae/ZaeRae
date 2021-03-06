@@ -25,13 +25,14 @@ import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 import "@openzeppelin/contracts/utils/EnumerableMap.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://eips.ethereum.org/EIPS/eip-721
  */
 contract ERC721 is
-    Context,
+    BaseRelayRecipient,
     ERC165,
     IERC721,
     IERC721Metadata,
@@ -108,6 +109,11 @@ contract ERC721 is
         _registerInterface(_INTERFACE_ID_ERC721_ENUMERABLE);
     }
 
+    function setForwarder(address _forwarder) external {
+        require(trustedForwarder == address(0), "Forwarder already set!");
+        trustedForwarder = _forwarder;
+    }
+
     /**
      * @dev See {IERC721-balanceOf}.
      */
@@ -118,6 +124,16 @@ contract ERC721 is
         );
 
         return _holderTokens[owner].length();
+    }
+
+    function versionRecipient()
+        external
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        return "1";
     }
 
     /**

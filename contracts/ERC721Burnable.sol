@@ -11,12 +11,13 @@ pragma solidity 0.6.8;
 
 import "@openzeppelin/contracts/GSN/Context.sol";
 import "./ERC721.sol";
+import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 
 /**
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be irreversibly burned (destroyed).
  */
-abstract contract ERC721Burnable is Context, ERC721 {
+abstract contract ERC721Burnable is ERC721 {
     /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.
      *

@@ -23,6 +23,7 @@
     "watch": "ts-node scripts/watch.ts"
   },
   "dependencies": {
+    "@opengsn/gsn": "^2.1.0",
     "ethers": "^5.0.19"
   },
   "devDependencies": {
