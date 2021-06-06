@@ -6,8 +6,9 @@ async function main() {
   const Forwarder = await ethers.getContractFactory('TestForwarder');
   forwarder = await Forwarder.deploy(await accounts[0].getAddress());
   await forwarder.deployed();
-  await forwarder.registerDomainSeparator('BaeZoraForwarder', '1');
-  // trustless nudes ftw
+  //creates aerae forwarder for the first time (saving this address is important, we will use it as the forwarder for all work going forward)
+  await forwarder.registerDomainSeparator('AeraeForwarder', '1');
+  // trustless ftw
   await forwarder.renounceOwnership();
 
   console.log(' Forwarder Deployed @ ' + forwarder.address);
