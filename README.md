@@ -1,3 +1,13 @@
+# ZaeRae
+
+ZaeRae is an L2 optimised fork of the Zora Media Protocol, adding the building blocks for gasless bidding.
+
+This fork was orginally written and deployed by developers at baebay (baebay.co), an adult creator platform on Polygon network.
+
+That fork was called BaeZora and was designed to power their NFT marketplace. However, moving forward, this fork will be maintained by Aerae.
+
+Aerae is building an array (pun intended) of open source NFT & creator token tools on L2. This is our first of many projects.
+
 # Zora Media Protocol
 
 This repository contains the core contracts that compose the Zora Media Protocol.
