@@ -153,7 +153,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
      * @notice On deployment, set the market contract address and register the
      * ERC721 metadata interface
      */
-    constructor(address marketContractAddr) public ERC721("BaeZora", "BZR") {
+    constructor(address marketContractAddr) public ERC721("ZaeRae", "ZAERAE") {
         marketContract = marketContractAddr;
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
