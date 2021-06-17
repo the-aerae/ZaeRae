@@ -24,3 +24,5 @@ artifacts
 typechain
 
 dist/
+
+.secret
