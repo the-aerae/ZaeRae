@@ -25,7 +25,7 @@ const types = {
   EIP712Domain: [
     { name: 'name', type: 'string' },
     { name: 'version', type: 'string' },
-    { name: 'salt', type: 'uint256' },
+    { name: 'chainId', type: 'uint256' },
     { name: 'verifyingContract', type: 'address' },
   ],
 };
@@ -34,6 +34,7 @@ describe('Gasless Bidding', function () {
   beforeEach(async function () {
     //setup accounts
     accounts = await ethers.getSigners();
+    let chainId = 137;
 
     //initialise contracts
 
@@ -50,7 +51,7 @@ describe('Gasless Bidding', function () {
     domain = {
       name: 'testForwarder',
       version: '1',
-      salt: 1,
+      chainId: chainId,
       verifyingContract: forwarder.address,
     };
     domainSeparator = ethers.utils.keccak256(
@@ -58,11 +59,11 @@ describe('Gasless Bidding', function () {
         ['bytes32', 'bytes32', 'bytes32', 'uint256', 'address'],
         [
           ethers.utils.id(
-            'EIP712Domain(string name,string version,uint256 salt,address verifyingContract)'
+            'EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)'
           ),
           ethers.utils.id('testForwarder'),
           ethers.utils.id('1'),
-          1,
+          chainId,
           forwarder.address,
         ]
       )

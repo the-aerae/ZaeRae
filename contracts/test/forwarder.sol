@@ -26,7 +26,7 @@ contract TestForwarder is ERC20ForwardRequestTypes, Ownable {
     mapping(bytes32 => bool) public domains;
 
     string public constant EIP712_DOMAIN_TYPE =
-        "EIP712Domain(string name,string version,uint256 salt,address verifyingContract)";
+        "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)";
 
     bytes32 public constant REQUEST_TYPEHASH =
         keccak256(
