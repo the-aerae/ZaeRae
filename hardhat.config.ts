@@ -17,7 +17,7 @@ const config: HardhatUserConfig = {
       accounts: makeKeyList()
     },
     hardhat:{
-      chainId:1,
+      chainId:137,
       gas:9500000,
       accounts:[
         {privateKey:privateKeys[0],balance:"1000000000000000000000"},
