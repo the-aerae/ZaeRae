@@ -27,6 +27,8 @@ import "@openzeppelin/contracts/utils/EnumerableMap.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 
+import "./OwnableNoContext.sol";
+
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
  * @dev see https://eips.ethereum.org/EIPS/eip-721
@@ -36,7 +38,8 @@ contract ERC721 is
     ERC165,
     IERC721,
     IERC721Metadata,
-    IERC721Enumerable
+    IERC721Enumerable,
+    OwnableNoContext
 {
     using SafeMath for uint256;
     using Address for address;
@@ -109,8 +112,7 @@ contract ERC721 is
         _registerInterface(_INTERFACE_ID_ERC721_ENUMERABLE);
     }
 
-    function setForwarder(address _forwarder) external {
-        require(trustedForwarder == address(0), "Forwarder already set!");
+    function setForwarder(address _forwarder) external onlyOwner {
         trustedForwarder = _forwarder;
     }
 
