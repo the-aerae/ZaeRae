@@ -16,6 +16,8 @@ import {Decimal} from "./Decimal.sol";
 import {IMarket} from "./interfaces/IMarket.sol";
 import "./interfaces/IMedia.sol";
 
+import "hardhat/console.sol";
+
 /**
  * @title A media value system, with perpetual equity to creators
  * @notice This contract provides an interface to mint media with a market
@@ -247,7 +249,8 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
             );
 
         address recoveredAddress = ecrecover(digest, sig.v, sig.r, sig.s);
-
+        console.log("Hardhat console: Recovered address: ", recoveredAddress);
+        console.log("Hardhat console: Expected address: ", creator);
         require(
             recoveredAddress != address(0) && creator == recoveredAddress,
             "Media: Signature invalid"
@@ -437,6 +440,8 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
             );
 
         address recoveredAddress = ecrecover(digest, sig.v, sig.r, sig.s);
+        console.log("Hardhat console: Recovered address: ", recoveredAddress);
+        console.log("Hardhat console: Expected address: ", ownerOf(tokenId));
 
         require(
             recoveredAddress != address(0) &&
@@ -569,7 +574,7 @@ contract Media is IMedia, ERC721Burnable, ReentrancyGuard {
                     keccak256(
                         "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
                     ),
-                    keccak256(bytes("BaeZora")),
+                    keccak256(bytes("ZaeRae")),
                     keccak256(bytes("1")),
                     chainID,
                     address(this)

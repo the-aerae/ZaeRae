@@ -456,8 +456,10 @@ describe('Media', () => {
         contentHash,
         metadataHash,
         Decimal.new(5).value.toString(),
-        1
+        137
       );
+
+      console.log("Signature: ", sig)
 
       const beforeNonce = await token.mintWithSigNonces(creatorWallet.address);
       await expect(
@@ -1308,7 +1310,7 @@ describe('Media', () => {
         token.address,
         0,
         // NOTE: We set the chain ID to 1 because of an error with ganache-core: https://github.com/trufflesuite/ganache-core/issues/515
-        1
+        137
       );
       await expect(token.permit(otherWallet.address, 0, sig)).fulfilled;
       await expect(token.getApproved(0)).eventually.eq(otherWallet.address);
