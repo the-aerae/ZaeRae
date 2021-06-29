@@ -16,6 +16,11 @@ const config: HardhatUserConfig = {
       url:"https://rpc-mainnet.matic.network",
       accounts: makeKeyList()
     },
+    mumbai: {
+      url:"https://rpc-mumbai.matic.today",
+      accounts: makeKeyList()
+    }
+    ,
     hardhat:{
       chainId:137,
       gas:9500000,
