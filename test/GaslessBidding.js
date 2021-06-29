@@ -151,6 +151,19 @@ describe('Gasless Bidding', function () {
 
     // verify bid happened
   });
+
+  it('Enables contract owner to change forwarder address', async function () {
+    await media.setForwarder(await accounts[1].getAddress());
+    expect(await media.trustedForwarder()).to.equal(
+      await accounts[1].getAddress()
+    );
+  });
+
+  it("Doesn't allow non-authorised accounts to change forwarder addresses", async function () {
+    await expect(
+      media.connect(accounts[2]).setForwarder(await accounts[1].getAddress())
+    ).to.be.revertedWith('OwnableNoContext: caller is not the owner');
+  });
 });
 
 //bid without paying gas
