@@ -16,6 +16,20 @@ The protocol aims to provide a universal value system for media.
 
 Further documentation is available at [zora.engineering](https://zora.engineering)
 
+### Contract Addresses
+
+`MATIC`
+
+Forwarder Deployed @ 0x640f7AEaC4Fc42f7852AbA5fF69B10De21db4112
+Market Deployed @ 0xD96d06C34c72503F5699C72feE7C7E002fC72A5C
+Media Deployed @ 0x02F0f7b5e33ECbd35ba8bA36e7c9e4e97DDB8b5c
+
+`Mumbai`
+
+Forwarder Deployed @ 0xe7aDC04aD9fA888C1F4d86D35a177a5179B509B9
+Market Deployed @ 0x1A7c4Ff70c93A4a8Cfef500dA2C86598ed86A842
+Media Deployed @ 0xcB154B43fe55Db977433DF351fC9fe7A701DEb05
+
 ## Table of Contents
 
 - [Whitepaper](#whitepaper)
